@@ -34,7 +34,7 @@ class DashboardController extends Controller
 
     // Menghitung total penerimaan untuk tahun selain aktif
     for ($bulan = 1; $bulan <= 12; $bulan++) {
-        $dataBulanNonAktif = dasboarModel::selectRaw('SUM(pembayaran_sppt.jml_sppt_yg_dibayar) as total_bayar')
+        $dataBulanNonAktif = dasboarModel::selectRaw('SUM(pembayaran_sppt.jml_sppt_yg_dibayar)-SUM(pembayaran_sppt.denda_sppt) as total_bayar')
           ->whereRaw("EXTRACT(MONTH FROM pembayaran_sppt.tgl_pembayaran_sppt) = $bulan")
           ->whereRaw("EXTRACT(YEAR FROM pembayaran_sppt.tgl_pembayaran_sppt) = $tahun")
           ->where('pembayaran_sppt.thn_pajak_sppt','!=', $tahun)
